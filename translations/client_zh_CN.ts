@@ -2483,16 +2483,11 @@ Alternatively, you can restore all deleted files by downloading them from the se
     </message>
     <message>
         <location filename="../src/gui/folderman.cpp" line="2047"/>
-        <source>Multiple accounts are sharing the folder %1.
-This configuration is known to lead to data loss and is no longer supported.
-Please consider removing this folder from the account and adding it again.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/gui/folderman.cpp" line="2047"/>
-        <source>Multiple accounts are sharing the folder %1.
-This configuration is know to lead to dataloss and is no longer supported.
-Please consider removing this folder from the account and adding it again.</source>
+        <source>The folder %1 is linked to multiple accounts.
+This setup can cause data loss and it is no longer supported.
+To resolve this issue: please remove %1 from one of the accounts and create a new sync folder.
+
+For advanced users: this issue might be related to multiple sync database files found in one folder. Please check %1 for outdated and unused .sync_*.db files and remove them.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -4768,12 +4763,12 @@ This is a new, experimental mode. If you decide to use it, please report any iss
     <message>
         <location filename="../src/libsync/propagateuploadng.cpp" line="500"/>
         <source>Missing File ID from server</source>
-        <translation>服务器端文件 ID 缺失</translation>
+        <translation>服务端文件 ID 缺失</translation>
     </message>
     <message>
         <location filename="../src/libsync/propagateuploadng.cpp" line="514"/>
         <source>Missing ETag from server</source>
-        <translation>服务器端 ETag 缺失</translation>
+        <translation>服务端 ETag 缺失</translation>
     </message>
 </context>
 <context>
@@ -5454,7 +5449,7 @@ Server replied with error: %2</source>
     <message>
         <location filename="../src/libsync/syncengine.cpp" line="1263"/>
         <source>There is insufficient space available on the server for some uploads.</source>
-        <translation>对于某些上传文件来说，服务器端的可用空间不足。</translation>
+        <translation>服务器上的空间不足以用于某些上传。</translation>
     </message>
 </context>
 <context>

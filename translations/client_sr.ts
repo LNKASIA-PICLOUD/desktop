@@ -2487,19 +2487,16 @@ Alternatively, you can restore all deleted files by downloading them from the se
     </message>
     <message>
         <location filename="../src/gui/folderman.cpp" line="2047"/>
-        <source>Multiple accounts are sharing the folder %1.
-This configuration is known to lead to data loss and is no longer supported.
-Please consider removing this folder from the account and adding it again.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/gui/folderman.cpp" line="2047"/>
-        <source>Multiple accounts are sharing the folder %1.
-This configuration is know to lead to dataloss and is no longer supported.
-Please consider removing this folder from the account and adding it again.</source>
-        <translation>Фолдер %1 дели више налога..
-Познато је да оваква конфигурација доводи до губитка података и више се не подржава.
-Молимо вас да размотрите могућност да овај фолдер уклоните са налога, па да га поново додате.</translation>
+        <source>The folder %1 is linked to multiple accounts.
+This setup can cause data loss and it is no longer supported.
+To resolve this issue: please remove %1 from one of the accounts and create a new sync folder.
+
+For advanced users: this issue might be related to multiple sync database files found in one folder. Please check %1 for outdated and unused .sync_*.db files and remove them.</source>
+        <translation>Фолдер %1 је везан за више налога.
+Овакво подешавања може да изазове губитак података и више се не подржава.
+Ако желите да решите проблем: молимо вас да %1 уклоните из једно г од налога и креирате нови фолдер за синхронизацију.
+
+За напредне кориснике: проблем може да буде у вези са више база података синхронизације које се налазе у једном фолдеру. Молимо вас да проверите да ли се у %1 налазе застарели и некоришћени .sync_*.db фајлови и уклоните их.</translation>
     </message>
 </context>
 <context>

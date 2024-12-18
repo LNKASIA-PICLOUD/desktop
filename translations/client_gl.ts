@@ -2487,21 +2487,16 @@ Como alternativa, pode restaurar todos os ficheiros eliminados descargándoos do
     </message>
     <message>
         <location filename="../src/gui/folderman.cpp" line="2047"/>
-        <source>Multiple accounts are sharing the folder %1.
-This configuration is known to lead to data loss and is no longer supported.
-Please consider removing this folder from the account and adding it again.</source>
-        <translation>Varias contas están a compartir o cartafol %1
-Sábese que esta configuración leva á perda de datos e xa non está admitida.
-Considere eliminar este cartafol da conta e engadilo de novo.</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/folderman.cpp" line="2047"/>
-        <source>Multiple accounts are sharing the folder %1.
-This configuration is know to lead to dataloss and is no longer supported.
-Please consider removing this folder from the account and adding it again.</source>
-        <translation>Varias contas están a compartir o cartafol %1
-Sábese que esta configuración leva á perda de datos e xa non está admitida.
-Considere eliminar este cartafol da conta e engadilo de novo.</translation>
+        <source>The folder %1 is linked to multiple accounts.
+This setup can cause data loss and it is no longer supported.
+To resolve this issue: please remove %1 from one of the accounts and create a new sync folder.
+
+For advanced users: this issue might be related to multiple sync database files found in one folder. Please check %1 for outdated and unused .sync_*.db files and remove them.</source>
+        <translation>O cartafol %1 está ligado a varias contas.
+Esta configuración pode provocar a perda de datos e xa non está admitida.
+Para resolver este problema: elimine %1 dunha das contas e cree un novo cartafol de sincronización.
+
+Para usuarios avanzados: este problema pode estar relacionado con varios ficheiros de bases de datos de sincronización que se atopan nun cartafol. Comprobe se %1 ten ficheiros .sync_*.db obsoletos e sen usar e elimíneos.</translation>
     </message>
 </context>
 <context>

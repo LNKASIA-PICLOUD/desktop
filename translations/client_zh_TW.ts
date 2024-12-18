@@ -2487,21 +2487,16 @@ Alternatively, you can restore all deleted files by downloading them from the se
     </message>
     <message>
         <location filename="../src/gui/folderman.cpp" line="2047"/>
-        <source>Multiple accounts are sharing the folder %1.
-This configuration is known to lead to data loss and is no longer supported.
-Please consider removing this folder from the account and adding it again.</source>
-        <translation>有多個帳號正在共用資料夾 %1。
-這種組態已知會導致資料遺失且不再支援。
-請考慮從帳號中移除此資料夾並重新新增。</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/folderman.cpp" line="2047"/>
-        <source>Multiple accounts are sharing the folder %1.
-This configuration is know to lead to dataloss and is no longer supported.
-Please consider removing this folder from the account and adding it again.</source>
-        <translation>有多個帳號正在共用資料夾 %1。
-這種組態已知會導致資料遺失且不再支援。
-請考慮從帳號中移除此資料夾並重新新增。</translation>
+        <source>The folder %1 is linked to multiple accounts.
+This setup can cause data loss and it is no longer supported.
+To resolve this issue: please remove %1 from one of the accounts and create a new sync folder.
+
+For advanced users: this issue might be related to multiple sync database files found in one folder. Please check %1 for outdated and unused .sync_*.db files and remove them.</source>
+        <translation>資料夾 %1 連結到多個帳號。
+這種設定方式可能會導致資料遺失，且不再支援。
+要解決此問題：請從其中一個帳號移除 %1，然後建立新的同步資料夾。
+
+給進階使用者：此問題可能與在同一個資料夾中找到多個同步資料庫檔案有關。請檢查 %1 是否有過期與未使用的 sync_*.db 檔案並將其移除。</translation>
     </message>
 </context>
 <context>
