@@ -231,9 +231,7 @@ Application::Application(int &argc, char **argv)
     //    setOrganizationName(QLatin1String(APPLICATION_VENDOR));
     setOrganizationDomain(QLatin1String(APPLICATION_REV_DOMAIN));
 
-    QString desktopFileName = QString(QLatin1String(LINUX_APPLICATION_ID)
-                                        + QLatin1String(".desktop"));
-    setDesktopFileName(desktopFileName);
+    setDesktopFileName(QString(LINUX_APPLICATION_ID));
 
     setApplicationName(_theme->appName());
     setWindowIcon(_theme->applicationIcon());
