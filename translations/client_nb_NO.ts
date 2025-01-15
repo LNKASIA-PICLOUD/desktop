@@ -39,14 +39,6 @@
     </message>
 </context>
 <context>
-    <name>BasicComboBox</name>
-    <message>
-        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
-        <source>Clear status message menu</source>
-        <translation>Slett statusmeldingsmeny</translation>
-    </message>
-</context>
-<context>
     <name>CallNotificationDialog</name>
     <message>
         <location filename="../src/gui/tray/CallNotificationDialog.qml" line="194"/>
@@ -2049,6 +2041,11 @@ Dette kan være et problem med OpenSSL-bibliotekene dine.</translation>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="221"/>
         <source>Reopen Browser</source>
         <translation>Gjenåpne nettleser</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/wizard/flow2authwidget.cpp" line="222"/>
+        <source>Open Browser</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="224"/>
@@ -6480,6 +6477,11 @@ Server svarte med feil: %2</translation>
         <translation>Skjul nedlasting</translation>
     </message>
     <message>
+        <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="469"/>
+        <source>Password protection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="516"/>
         <source>Password protect</source>
         <translation>Passordbeskytt</translation>
@@ -7172,6 +7174,14 @@ Server svarte med feil: %2</translation>
         <location filename="../src/gui/guiutility.cpp" line="105"/>
         <source>Free up local space</source>
         <translation>Frigjør lokal plass</translation>
+    </message>
+</context>
+<context>
+    <name>BasicComboBox</name>
+    <message>
+        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
+        <source>Clear status message menu</source>
+        <translation>Slett statusmeldingsmeny</translation>
     </message>
 </context>
 <context>

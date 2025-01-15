@@ -39,14 +39,6 @@
     </message>
 </context>
 <context>
-    <name>BasicComboBox</name>
-    <message>
-        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
-        <source>Clear status message menu</source>
-        <translation>상태 메시지 메뉴 지우기</translation>
-    </message>
-</context>
-<context>
     <name>CallNotificationDialog</name>
     <message>
         <location filename="../src/gui/tray/CallNotificationDialog.qml" line="194"/>
@@ -2048,6 +2040,11 @@ OpenSSL 라이브러리 이슈일 수 있습니다.</translation>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="221"/>
         <source>Reopen Browser</source>
         <translation>브라우저를 다시 열기</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/wizard/flow2authwidget.cpp" line="222"/>
+        <source>Open Browser</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="224"/>
@@ -6493,6 +6490,11 @@ Server replied with error: %2</source>
         <translation>다운로드 숨기기</translation>
     </message>
     <message>
+        <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="469"/>
+        <source>Password protection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="516"/>
         <source>Password protect</source>
         <translation>암호 보호</translation>
@@ -7185,6 +7187,14 @@ Server replied with error: %2</source>
         <location filename="../src/gui/guiutility.cpp" line="105"/>
         <source>Free up local space</source>
         <translation>로컬 저장공간 확보</translation>
+    </message>
+</context>
+<context>
+    <name>BasicComboBox</name>
+    <message>
+        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
+        <source>Clear status message menu</source>
+        <translation>상태 메시지 메뉴 지우기</translation>
     </message>
 </context>
 <context>

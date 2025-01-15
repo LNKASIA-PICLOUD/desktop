@@ -39,14 +39,6 @@
     </message>
 </context>
 <context>
-    <name>BasicComboBox</name>
-    <message>
-        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
-        <source>Clear status message menu</source>
-        <translation>メニューのステータスメッセージの削除</translation>
-    </message>
-</context>
-<context>
     <name>CallNotificationDialog</name>
     <message>
         <location filename="../src/gui/tray/CallNotificationDialog.qml" line="194"/>
@@ -2051,6 +2043,11 @@ This can be an issue with your OpenSSL libraries.</source>
         <translation>ブラウザーを再度開く</translation>
     </message>
     <message>
+        <location filename="../src/gui/wizard/flow2authwidget.cpp" line="222"/>
+        <source>Open Browser</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="224"/>
         <source>Copy Link</source>
         <translation>リンクをコピー</translation>
@@ -2491,7 +2488,10 @@ Alternatively, you can restore all deleted files by downloading them from the se
 This setup can cause data loss and it is no longer supported.
 To resolve this issue: please remove %1 from one of the accounts and create a new sync folder.
 For advanced users: this issue might be related to multiple sync database files found in one folder. Please check %1 for outdated and unused .sync_*.db files and remove them.</source>
-        <translation type="unfinished"/>
+        <translation>%1フォルダは複数のアカウントにリンクされています。
+この設定はデータ損失の原因となる可能性があり、現在はサポートされていません。
+この問題を解決するには：%1をいずれかのアカウントから削除し、新しい同期フォルダを作成してください。
+上級者向け：この問題は、1つのフォルダに複数の同期データベースファイルがあることが原因である可能性があります。%1に古くて使用されていない.sync_*.dbファイルがないか確認し、削除してください。</translation>
     </message>
 </context>
 <context>
@@ -4393,7 +4393,7 @@ This is a new, experimental mode. If you decide to use it, please report any iss
         <location filename="../src/libsync/owncloudpropagator.cpp" line="1485"/>
         <location filename="../src/libsync/owncloudpropagator.cpp" line="1519"/>
         <source>unknown exception</source>
-        <translation type="unfinished"/>
+        <translation>不明な例外</translation>
     </message>
     <message>
         <location filename="../src/libsync/owncloudpropagator.cpp" line="1387"/>
@@ -4527,7 +4527,7 @@ This is a new, experimental mode. If you decide to use it, please report any iss
     <message>
         <location filename="../src/libsync/propagatorjobs.cpp" line="259"/>
         <source>unknown exception</source>
-        <translation type="unfinished"/>
+        <translation>不明な例外</translation>
     </message>
     <message>
         <location filename="../src/libsync/propagatorjobs.cpp" line="200"/>
@@ -6491,6 +6491,11 @@ Server replied with error: %2</source>
         <translation>ダウンロードを隠す</translation>
     </message>
     <message>
+        <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="469"/>
+        <source>Password protection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="516"/>
         <source>Password protect</source>
         <translation>パスワード保護</translation>
@@ -7183,6 +7188,14 @@ Server replied with error: %2</source>
         <location filename="../src/gui/guiutility.cpp" line="105"/>
         <source>Free up local space</source>
         <translation>ローカル領域の確保</translation>
+    </message>
+</context>
+<context>
+    <name>BasicComboBox</name>
+    <message>
+        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
+        <source>Clear status message menu</source>
+        <translation>メニューのステータスメッセージの削除</translation>
     </message>
 </context>
 <context>

@@ -39,14 +39,6 @@
     </message>
 </context>
 <context>
-    <name>BasicComboBox</name>
-    <message>
-        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
-        <source>Clear status message menu</source>
-        <translation>Limpar o menú de mensaxes de estado</translation>
-    </message>
-</context>
-<context>
     <name>CallNotificationDialog</name>
     <message>
         <location filename="../src/gui/tray/CallNotificationDialog.qml" line="194"/>
@@ -2049,6 +2041,11 @@ Isto pode ser un problema coas súas bibliotecas OpenSSL.</translation>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="221"/>
         <source>Reopen Browser</source>
         <translation>Volver abrir o navegador</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/wizard/flow2authwidget.cpp" line="222"/>
+        <source>Open Browser</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="224"/>
@@ -6491,6 +6488,11 @@ O servidor respondeu co erro: %2</translation>
         <translation>Agochar a descarga</translation>
     </message>
     <message>
+        <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="469"/>
+        <source>Password protection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="516"/>
         <source>Password protect</source>
         <translation>Protexido con contrasinal</translation>
@@ -7183,6 +7185,14 @@ O servidor respondeu co erro: %2</translation>
         <location filename="../src/gui/guiutility.cpp" line="105"/>
         <source>Free up local space</source>
         <translation>Liberar espazo local</translation>
+    </message>
+</context>
+<context>
+    <name>BasicComboBox</name>
+    <message>
+        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
+        <source>Clear status message menu</source>
+        <translation>Limpar o menú de mensaxes de estado</translation>
     </message>
 </context>
 <context>

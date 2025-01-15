@@ -39,14 +39,6 @@
     </message>
 </context>
 <context>
-    <name>BasicComboBox</name>
-    <message>
-        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
-        <source>Clear status message menu</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>CallNotificationDialog</name>
     <message>
         <location filename="../src/gui/tray/CallNotificationDialog.qml" line="194"/>
@@ -1385,13 +1377,13 @@ This action will abort any currently running synchronization.</source>
     <message>
         <location filename="../src/gui/caseclashfilenamedialog.ui" line="60"/>
         <source>file A</source>
-        <translation type="unfinished"/>
+        <translation>failas A</translation>
     </message>
     <message>
         <location filename="../src/gui/caseclashfilenamedialog.ui" line="107"/>
         <location filename="../src/gui/caseclashfilenamedialog.ui" line="213"/>
         <source>today</source>
-        <translation type="unfinished"/>
+        <translation>šiandiena</translation>
     </message>
     <message>
         <location filename="../src/gui/caseclashfilenamedialog.ui" line="114"/>
@@ -1403,7 +1395,7 @@ This action will abort any currently running synchronization.</source>
         <location filename="../src/gui/caseclashfilenamedialog.ui" line="121"/>
         <location filename="../src/gui/caseclashfilenamedialog.cpp" line="105"/>
         <source>Open existing file</source>
-        <translation type="unfinished"/>
+        <translation>Atverti esamą failą</translation>
     </message>
     <message>
         <location filename="../src/gui/caseclashfilenamedialog.ui" line="165"/>
@@ -1429,7 +1421,7 @@ This action will abort any currently running synchronization.</source>
     <message>
         <location filename="../src/gui/caseclashfilenamedialog.ui" line="281"/>
         <source>New filename</source>
-        <translation type="unfinished"/>
+        <translation>Naujas failo pavadinimas</translation>
     </message>
     <message>
         <location filename="../src/gui/caseclashfilenamedialog.cpp" line="97"/>
@@ -2038,6 +2030,11 @@ This can be an issue with your OpenSSL libraries.</source>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="221"/>
         <source>Reopen Browser</source>
         <translation>Atverti naršyklę iš naujo</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/wizard/flow2authwidget.cpp" line="222"/>
+        <source>Open Browser</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="224"/>
@@ -6449,6 +6446,11 @@ Server replied with error: %2</source>
         <translation>Slėpti atsiuntimą</translation>
     </message>
     <message>
+        <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="469"/>
+        <source>Password protection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="516"/>
         <source>Password protect</source>
         <translation type="unfinished"/>
@@ -7140,6 +7142,14 @@ Server replied with error: %2</source>
     <message>
         <location filename="../src/gui/guiutility.cpp" line="105"/>
         <source>Free up local space</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>BasicComboBox</name>
+    <message>
+        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
+        <source>Clear status message menu</source>
         <translation type="unfinished"/>
     </message>
 </context>

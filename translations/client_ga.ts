@@ -39,14 +39,6 @@
     </message>
 </context>
 <context>
-    <name>BasicComboBox</name>
-    <message>
-        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
-        <source>Clear status message menu</source>
-        <translation>Glan an roghchlár teachtaireacht stádais</translation>
-    </message>
-</context>
-<context>
     <name>CallNotificationDialog</name>
     <message>
         <location filename="../src/gui/tray/CallNotificationDialog.qml" line="194"/>
@@ -2049,6 +2041,11 @@ Féadfaidh sé seo a bheith ina fhadhb le do leabharlanna OpenSSL.</translation>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="221"/>
         <source>Reopen Browser</source>
         <translation>Athoscail Brabhsálaí</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/wizard/flow2authwidget.cpp" line="222"/>
+        <source>Open Browser</source>
+        <translation>Oscail Brabhsálaí</translation>
     </message>
     <message>
         <location filename="../src/gui/wizard/flow2authwidget.cpp" line="224"/>
@@ -6495,6 +6492,11 @@ D&apos;fhreagair an freastalaí le hearráid: % 2</translation>
         <translation>Folaigh íoslódáil</translation>
     </message>
     <message>
+        <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="469"/>
+        <source>Password protection</source>
+        <translation>Cosaint pasfhocal</translation>
+    </message>
+    <message>
         <location filename="../src/gui/filedetails/ShareDetailsPage.qml" line="516"/>
         <source>Password protect</source>
         <translation>Pasfhocal a chosaint</translation>
@@ -7187,6 +7189,14 @@ D&apos;fhreagair an freastalaí le hearráid: % 2</translation>
         <location filename="../src/gui/guiutility.cpp" line="105"/>
         <source>Free up local space</source>
         <translation>Saor suas spás áitiúil</translation>
+    </message>
+</context>
+<context>
+    <name>BasicComboBox</name>
+    <message>
+        <location filename="../src/gui/BasicComboBox.qml" line="62"/>
+        <source>Clear status message menu</source>
+        <translation>Glan an roghchlár teachtaireacht stádais</translation>
     </message>
 </context>
 <context>
