@@ -149,6 +149,7 @@ ownCloudGui::ownCloudGui(Application *parent)
     qmlRegisterUncreatableType<UnifiedSearchResultsListModel>("com.nextcloud.desktopclient", 1, 0, "UnifiedSearchResultsListModel", "UnifiedSearchResultsListModel");
     qmlRegisterUncreatableType<UserStatus>("com.nextcloud.desktopclient", 1, 0, "UserStatus", "Access to Status enum");
     qmlRegisterUncreatableType<Sharee>("com.nextcloud.desktopclient", 1, 0, "Sharee", "Access to Type enum");
+    qmlRegisterUncreatableType<ClientSideEncryptionTokenSelector>("com.nextcloud.desktopclient", 1, 0, "ClientSideEncryptionTokenSelector", "Access to the certificate selector");
 
     qRegisterMetaType<ActivityListModel *>("ActivityListModel*");
     qRegisterMetaType<UnifiedSearchResultsListModel *>("UnifiedSearchResultsListModel*");
@@ -312,6 +313,7 @@ void ownCloudGui::slotComputeOverallSyncStatus()
     QList<QString> problemFileProviderAccounts;
     QList<QString> syncingFileProviderAccounts;
     QList<QString> successFileProviderAccounts;
+    QList<QString> idleFileProviderAccounts;
 
     if (Mac::FileProvider::fileProviderAvailable()) {
         for (const auto &accountState : AccountManager::instance()->accounts()) {
@@ -328,6 +330,7 @@ void ownCloudGui::slotComputeOverallSyncStatus()
                 switch (const auto latestStatus = fileProvider->socketServer()->latestReceivedSyncStatusForAccount(accountState->account())) {
                 case SyncResult::Undefined:
                 case SyncResult::NotYetStarted:
+                    idleFileProviderAccounts.append(accountFpId);
                     break;
                 case SyncResult::SyncPrepare:
                 case SyncResult::SyncRunning:
@@ -342,7 +345,7 @@ void ownCloudGui::slotComputeOverallSyncStatus()
                 case SyncResult::SetupError:
                     problemFileProviderAccounts.append(accountFpId);
                     break;
-                case SyncResult::Paused:
+                case SyncResult::Paused: // This is not technically possible with VFS
                     break;
                 }
             }
@@ -404,6 +407,12 @@ void ownCloudGui::slotComputeOverallSyncStatus()
                overallStatus != SyncResult::Error &&
                overallStatus != SyncResult::SetupError) {
         overallStatus = SyncResult::SyncRunning;
+    } else if ((!successFileProviderAccounts.isEmpty() || (problemFileProviderAccounts.isEmpty() && syncingFileProviderAccounts.isEmpty() && !idleFileProviderAccounts.isEmpty())) &&
+               overallStatus != SyncResult::SyncRunning &&
+               overallStatus != SyncResult::Problem &&
+               overallStatus != SyncResult::Error &&
+               overallStatus != SyncResult::SetupError) {
+        overallStatus = SyncResult::Success;
     }
 #endif
 
@@ -606,10 +615,15 @@ void ownCloudGui::slotShowSettings()
     if (_settingsDialog.isNull()) {
         _settingsDialog = new SettingsDialog(this);
         _settingsDialog->setAttribute(Qt::WA_DeleteOnClose, true);
+
 #ifdef Q_OS_MAC
         auto *fgbg = new ForegroundBackground();
         _settingsDialog->installEventFilter(fgbg);
 #endif
+
+        connect(_tray.data(), &Systray::hideSettingsDialog,
+                _settingsDialog.data(), &SettingsDialog::close);
+
         _settingsDialog->show();
     }
     raiseDialog(_settingsDialog.data());

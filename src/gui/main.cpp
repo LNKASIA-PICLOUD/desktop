@@ -78,24 +78,29 @@ int main(int argc, char **argv)
 
     QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
 
-    auto style = QStringLiteral("Fusion");
+    auto qmlStyle = QStringLiteral("Fusion");
+    auto widgetsStyle = QStringLiteral("");
 
 #if defined Q_OS_MAC
-    style = QStringLiteral("macOS");
+    qmlStyle = QStringLiteral("macOS");
 #elif defined Q_OS_WIN
-    style = QStringLiteral("Fusion");
-#endif
-
-    QQuickStyle::setStyle(style);
-    QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
-
-#if defined Q_OS_WIN
     if (QOperatingSystemVersion::current().version() < QOperatingSystemVersion::Windows11.version()) {
-        QApplication::setStyle(QStyleFactory::create("Fusion"));
+        qmlStyle = QStringLiteral("Universal");
+        widgetsStyle = QStringLiteral("Fusion");
+    } else {
+        qmlStyle = QStringLiteral("FluentWinUI3");
+        widgetsStyle = QStringLiteral("windows11");
     }
 #endif
 
+    QQuickStyle::setStyle(qmlStyle);
+    QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
+
     OCC::Application app(argc, argv);
+
+    if (!widgetsStyle.isEmpty()) {
+        QApplication::setStyle(QStyleFactory::create(widgetsStyle));
+    }
 
 #ifndef Q_OS_WIN
     signal(SIGPIPE, SIG_IGN);

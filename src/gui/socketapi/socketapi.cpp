@@ -545,14 +545,14 @@ void SocketApi::processEncryptRequest(const QString &localFile)
     const auto rec = fileData.journalRecord();
     Q_ASSERT(rec.isValid());
 
-    if (!account->e2e() || account->e2e()->_mnemonic.isEmpty()) {
+    if (!account->e2e() || !account->e2e()->isInitialized()) {
         const int ret = QMessageBox::critical(
             nullptr,
             tr("Failed to encrypt folder at \"%1\"").arg(fileData.folderRelativePath),
             tr("The account %1 does not have end-to-end encryption configured. "
                "Please configure this in your account settings to enable folder encryption.").arg(account->prettyName()),
             QMessageBox::Ok
-        );
+            );
         Q_UNUSED(ret)
         return;
     }
@@ -1151,13 +1151,13 @@ void SocketApi::command_GET_STRINGS(const QString &argument, SocketListener *lis
         { "EMAIL_PRIVATE_LINK_MENU_TITLE", tr("Send private link by email …") },
         { "CONTEXT_MENU_ICON", APPLICATION_ICON_NAME },
     } };
-    listener->sendMessage(QString("GET_STRINGS:BEGIN"));
+    listener->sendMessage(QStringLiteral("GET_STRINGS:BEGIN"));
     for (const auto& key_value : strings) {
         if (argument.isEmpty() || argument == QLatin1String(key_value.first)) {
-            listener->sendMessage(QString("STRING:%1:%2").arg(key_value.first, key_value.second));
+            listener->sendMessage(QStringLiteral("STRING:%1:%2").arg(key_value.first, key_value.second));
         }
     }
-    listener->sendMessage(QString("GET_STRINGS:END"));
+    listener->sendMessage(QStringLiteral("GET_STRINGS:END"));
 }
 
 void SocketApi::sendSharingContextMenuOptions(const FileData &fileData, SocketListener *listener, SharingContextItemEncryptedFlag itemEncryptionFlag, SharingContextItemRootEncryptedFolderFlag rootE2eeFolderFlag)
@@ -1325,7 +1325,7 @@ SocketApi::FileData SocketApi::FileData::parentFolder() const
 
 void SocketApi::command_GET_MENU_ITEMS(const QString &argument, OCC::SocketListener *listener)
 {
-    listener->sendMessage(QString("GET_MENU_ITEMS:BEGIN"), true);
+    listener->sendMessage(QStringLiteral("GET_MENU_ITEMS:BEGIN"), true);
     const QStringList files = split(argument);
 
     // Find the common sync folder.
@@ -1483,7 +1483,7 @@ void SocketApi::command_GET_MENU_ITEMS(const QString &argument, OCC::SocketListe
         }
     }
 
-    listener->sendMessage(QString("GET_MENU_ITEMS:END"));
+    listener->sendMessage(QStringLiteral("GET_MENU_ITEMS:END"));
 }
 
 DirectEditor* SocketApi::getDirectEditorForLocalFile(const QString &localFile)

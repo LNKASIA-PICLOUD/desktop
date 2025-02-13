@@ -138,6 +138,11 @@ Folder::Folder(const FolderDefinition &definition,
 
     connect(_accountState->account().data(), &Account::capabilitiesChanged, this, &Folder::slotCapabilitiesChanged);
 
+    connect(_accountState->account().data(), &Account::wantsFoldersSynced, this, [this] () {
+        _engine->setLocalDiscoveryOptions(OCC::LocalDiscoveryStyle::FilesystemOnly);
+        QMetaObject::invokeMethod(_engine.data(), "startSync", Qt::QueuedConnection);
+    });
+
     // Potentially upgrade suffix vfs to windows vfs
     ENFORCE(_vfs);
     if (_definition.virtualFilesMode == Vfs::WithSuffix
@@ -192,11 +197,11 @@ bool Folder::checkLocalPath()
         QString error;
         // Check directory again
         if (!FileSystem::fileExists(_definition.localPath, fi)) {
-            error = tr("Local folder %1 does not exist.").arg(_definition.localPath);
+            error = tr("Please choose a different location. The folder %1 doesn't exist.").arg(_definition.localPath);
         } else if (!fi.isDir()) {
-            error = tr("%1 should be a folder but is not.").arg(_definition.localPath);
+            error = tr("Please choose a different location. %1 isn't a valid folder.").arg(_definition.localPath);
         } else if (!fi.isReadable()) {
-            error = tr("%1 is not readable.").arg(_definition.localPath);
+            error = tr("Please choose a different location. %1 isn't a readable folder.").arg(_definition.localPath);
         }
         if (!error.isEmpty()) {
             _syncResult.appendErrorString(error);
@@ -1144,20 +1149,31 @@ SyncOptions Folder::initializeSyncOptions() const
 {
     SyncOptions opt;
     ConfigFile cfgFile;
+    const auto account = _accountState->account();
 
     auto newFolderLimit = cfgFile.newBigFolderSizeLimit();
     opt._newBigFolderSizeLimit = newFolderLimit.first ? newFolderLimit.second * 1000LL * 1000LL : -1; // convert from MB to B
     opt._confirmExternalStorage = cfgFile.confirmExternalStorage();
     opt._moveFilesToTrash = cfgFile.moveToTrash();
     opt._vfs = _vfs;
-    opt._parallelNetworkJobs = _accountState->account()->isHttp2Supported() ? 20 : 6;
+
+    const auto capsMaxConcurrentChunkUploads = account->capabilities().maxConcurrentChunkUploads();
+    opt._parallelNetworkJobs = capsMaxConcurrentChunkUploads > 0
+        ? capsMaxConcurrentChunkUploads
+        : account->isHttp2Supported() ? 20 : 6;
 
     // Chunk V2: Size of chunks must be between 5MB and 5GB, except for the last chunk which can be smaller
-    opt.setMinChunkSize(cfgFile.minChunkSize());
-    opt.setMaxChunkSize(cfgFile.maxChunkSize());
-    opt._initialChunkSize = ::qBound(opt.minChunkSize(), cfgFile.chunkSize(), opt.maxChunkSize());
-    opt._targetChunkUploadDuration = cfgFile.targetChunkUploadDuration();
+    const auto cfgMinChunkSize = cfgFile.minChunkSize();
+    opt.setMinChunkSize(cfgMinChunkSize);
 
+    if (const auto capsMaxChunkSize = account->capabilities().maxChunkSize(); capsMaxChunkSize) {
+        opt.setMaxChunkSize(capsMaxChunkSize);
+        opt._initialChunkSize = capsMaxChunkSize;
+    } else {
+        const auto cfgMaxChunkSize = cfgFile.maxChunkSize();
+        opt.setMaxChunkSize(cfgMaxChunkSize);
+        opt._initialChunkSize = ::qBound(cfgMinChunkSize, cfgFile.chunkSize(), cfgMaxChunkSize);
+    }
     opt.fillFromEnvironmentVariables();
     opt.verifyChunkSizes();
 

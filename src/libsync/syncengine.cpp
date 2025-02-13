@@ -423,6 +423,10 @@ void OCC::SyncEngine::slotItemDiscovered(const OCC::SyncFileItemPtr &item)
                 }
             }
 
+            if (rec.isE2eEncrypted()) {
+                rec._e2eCertificateFingerprint = _account->encryptionCertificateFingerprint();
+            }
+
             // Updating the db happens on success
             if (!_journal->setFileRecord(rec)) {
                 item->_status = SyncFileItem::Status::NormalError;
@@ -513,9 +517,13 @@ void SyncEngine::startSync()
             for (const auto &e2EeLockedFolder : e2EeLockedFolders) {
                 const auto folderId = e2EeLockedFolder.first;
                 qCInfo(lcEngine()) << "start unlock job for folderId:" << folderId;
-                const auto folderToken = EncryptionHelper::decryptStringAsymmetric(_account->e2e()->_privateKey, e2EeLockedFolder.second);
+                const auto folderToken = EncryptionHelper::decryptStringAsymmetric(_account->e2e()->getCertificateInformation(), _account->e2e()->paddingMode(), *_account->e2e(), e2EeLockedFolder.second);
+                if (!folderToken) {
+                    qCWarning(lcEngine()) << "decrypt failed";
+                    return;
+                }
                 // TODO: We need to rollback changes done to metadata in case we have an active lock, this needs to be implemented on the server first
-                const auto unlockJob = new OCC::UnlockEncryptFolderApiJob(_account, folderId, folderToken, _journal, this);
+                const auto unlockJob = new OCC::UnlockEncryptFolderApiJob(_account, folderId, *folderToken, _journal, this);
                 unlockJob->setShouldRollbackMetadataChanges(true);
                 unlockJob->start();
             }
@@ -1216,12 +1224,14 @@ void SyncEngine::setLocalDiscoveryOptions(LocalDiscoveryStyle style, std::set<QS
     _localDiscoveryStyle = style;
     _localDiscoveryPaths = std::move(paths);
 
-    const auto allPaths = std::accumulate(_localDiscoveryPaths.begin(), _localDiscoveryPaths.end(), QString{}, [] (auto first, auto second) -> QString {
-                              first += ", " + second;
-                              return first;
-    });
-
-    qCInfo(lcEngine()) << "paths to discover locally" << allPaths;
+    if (lcEngine().isDebugEnabled() && !_localDiscoveryPaths.empty()) {
+        // only execute if logging is enabled
+        auto debug = qDebug(lcEngine);
+        debug << "paths to discover locally";
+        for (auto path : _localDiscoveryPaths) {
+            debug << path;
+        }
+    }
 
     // Normalize to make sure that no path is a contained in another.
     // Note: for simplicity, this code consider anything less than '/' as a path separator, so for
@@ -1273,12 +1283,12 @@ bool SyncEngine::shouldDiscoverLocally(const QString &path) const
         if (it != _localDiscoveryPaths.begin() && path.startsWith(*(--it))) {
             result = it->endsWith('/') || (path.size() > it->size() && path.at(it->size()) <= '/');
             if (!result) {
-                qCInfo(lcEngine()) << path << "no local discovery needed";
+                qCDebug(lcEngine()) << path << "no local discovery needed";
             }
             return result;
         }
         result = false;
-        qCInfo(lcEngine()) << path << "no local discovery needed";
+        qCDebug(lcEngine()) << path << "no local discovery needed";
         return result;
     }
 
@@ -1298,12 +1308,12 @@ bool SyncEngine::shouldDiscoverLocally(const QString &path) const
         ++it;
         if (it == _localDiscoveryPaths.end() || !it->startsWith(path)) {
             result = false;
-            qCInfo(lcEngine()) << path << "no local discovery needed";
+            qCDebug(lcEngine()) << path << "no local discovery needed";
             return result;
         }
     }
 
-    qCInfo(lcEngine()) << path << "no local discovery needed";
+    qCDebug(lcEngine()) << path << "no local discovery needed";
     return result;
 }
 

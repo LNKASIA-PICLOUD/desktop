@@ -277,7 +277,7 @@ QIcon Theme::themeIcon(const QString &name, bool sysTray) const
             if (qgetenv("DESKTOP_SESSION") == "ubuntu") {
                 QBitmap mask = px.createMaskFromColor(Qt::white, Qt::MaskOutColor);
                 QPainter p(&px);
-                p.setPen(QColor("#dfdbd2"));
+                p.setPen(QColor(0xdfdbd2));
                 p.drawPixmap(px.rect(), mask, mask.rect());
             }
             cached.addPixmap(px);
@@ -432,7 +432,7 @@ QString Theme::helpUrl() const
 #ifdef APPLICATION_HELP_URL
     return QString::fromLatin1(APPLICATION_HELP_URL);
 #else
-    return QString::fromLatin1("https://docs.nextcloud.com/desktop/%1.%2/").arg(MIRALL_VERSION_MAJOR).arg(MIRALL_VERSION_MINOR);
+    return QString::fromLatin1("https://docs.nextcloud.com/#desktop");
 #endif
 }
 
@@ -870,7 +870,7 @@ bool Theme::isDarkColor(const QColor &color)
 
 QColor Theme::getBackgroundAwareLinkColor(const QColor &backgroundColor)
 {
-    return {(isDarkColor(backgroundColor) ? QColor("#6193dc") : QGuiApplication::palette().color(QPalette::Link))};
+    return {(isDarkColor(backgroundColor) ? QColor(0x6193dc) : QGuiApplication::palette().color(QPalette::Link))};
 }
 
 QColor Theme::getBackgroundAwareLinkColor()

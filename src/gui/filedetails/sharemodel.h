@@ -216,10 +216,10 @@ private slots:
     void setHideDownloadEnabledChangeInProgress(const QString &shareId, const bool isInProgress);
 
     void slotPropfindReceived(const QVariantMap &result);
-    void slotServerError(const int code, const QString &message);
     void slotAddShare(const OCC::SharePtr &share);
     void slotRemoveShareWithId(const QString &shareId);
     void slotSharesFetched(const QList<OCC::SharePtr> &shares);
+    void slotSharedWithMeFetched(const QList<OCC::SharePtr> &shares);
     void slotAddSharee(const OCC::ShareePtr &sharee);
     void slotRemoveSharee(const OCC::ShareePtr &sharee);
 

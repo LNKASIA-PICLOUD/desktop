@@ -33,6 +33,8 @@
 #include "clientsideencryption.h"
 #include "ocsuserstatusconnector.h"
 
+#include "config.h"
+
 #include <QLoggingCategory>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
@@ -80,6 +82,9 @@ Account::Account(QObject *parent)
 
     _pushNotificationsReconnectTimer.setInterval(pushNotificationsReconnectInterval);
     connect(&_pushNotificationsReconnectTimer, &QTimer::timeout, this, &Account::trySetupPushNotifications);
+
+    connect(&_e2e, &ClientSideEncryption::userCertificateNeedsMigrationChanged,
+            this, &Account::userCertificateNeedsMigrationChanged);
 }
 
 AccountPtr Account::create()
@@ -164,7 +169,7 @@ QString Account::displayName() const
         credentialsUser = _credentials->user();
     }
 
-    auto displayName = QString("%1@%2").arg(credentialsUser, _url.host());
+    auto displayName = QStringLiteral("%1@%2").arg(credentialsUser, _url.host());
     const auto port = url().port();
     if (port > 0 && port != 80 && port != 443) {
         displayName.append(QLatin1Char(':'));
@@ -1078,6 +1083,41 @@ void Account::setE2eEncryptionKeysGenerationAllowed(bool allowed)
 bool Account::askUserForMnemonic() const
 {
     return _e2eAskUserForMnemonic;
+}
+
+bool Account::enforceUseHardwareTokenEncryption() const
+{
+#if defined CLIENTSIDEENCRYPTION_ENFORCE_USB_TOKEN
+    return CLIENTSIDEENCRYPTION_ENFORCE_USB_TOKEN;
+#else
+    return false;
+#endif
+}
+
+QString Account::encryptionHardwareTokenDriverPath() const
+{
+#if defined ENCRYPTION_HARDWARE_TOKEN_DRIVER_PATH
+    return ENCRYPTION_HARDWARE_TOKEN_DRIVER_PATH;
+#else
+    return {};
+#endif
+}
+
+QByteArray Account::encryptionCertificateFingerprint() const
+{
+    return _encryptionCertificateFingerprint;
+}
+
+void Account::setEncryptionCertificateFingerprint(const QByteArray &fingerprint)
+{
+    if (_encryptionCertificateFingerprint == fingerprint) {
+        return;
+    }
+
+    _encryptionCertificateFingerprint = fingerprint;
+    _e2e.usbTokenInformation()->setSha256Fingerprint(fingerprint);
+    Q_EMIT encryptionCertificateFingerprintChanged();
+    Q_EMIT wantsAccountSaved(this);
 }
 
 void Account::setAskUserForMnemonic(const bool ask)

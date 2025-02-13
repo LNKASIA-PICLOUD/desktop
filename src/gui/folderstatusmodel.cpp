@@ -219,7 +219,7 @@ QVariant FolderStatusModel::data(const QModelIndex &index, int role) const
         case Qt::DisplayRole:
             if (folderInfo->_hasError) {
                 return {tr("Error while loading the list of folders from the server.")
-                        + QString("\n")
+                        + QStringLiteral("\n")
                         + folderInfo->_lastErrorString};
             } else {
                 return tr("Fetching folder list from server …");
@@ -765,8 +765,7 @@ void FolderStatusModel::slotUpdateDirectories(const QStringList &list)
 
         newInfo._isNonDecryptable = newInfo.isEncrypted()
             && _accountState->account()->e2e()
-            && !_accountState->account()->e2e()->_publicKey.isNull()
-            && _accountState->account()->e2e()->_privateKey.isNull();
+            && !_accountState->account()->e2e()->isInitialized();
 
         SyncJournalFileRecord rec;
         if (!parentInfo->_folder->journalDb()->getFileRecordByE2eMangledName(removeTrailingSlash(relativePath), &rec)) {
