@@ -120,6 +120,7 @@ void showEnableE2eeWarningDialog(std::function<void(void)> onAccept)
     const auto messageBox = new QMessageBox;
     messageBox->setAttribute(Qt::WA_DeleteOnClose);
     messageBox->setText(AccountSettings::tr("End-to-end Encryption"));
+    messageBox->setTextFormat(Qt::RichText);
     messageBox->setInformativeText(
         AccountSettings::tr("This will encrypt your folder and all files within it. "
                             "These files will no longer be accessible without your encryption mnemonic key. "
@@ -600,8 +601,9 @@ void AccountSettings::slotSubfolderContextMenuRequested(const QModelIndex& index
         const auto isEncrypted = info->isEncrypted();
         const auto isParentEncrypted = _model->isAnyAncestorEncrypted(index);
         const auto isTopFolder = index.parent().isValid() && !index.parent().parent().isValid();
+        const auto isExternal = info->_isExternal;
 
-        if (!isEncrypted && !isParentEncrypted && isTopFolder) {
+        if (!isEncrypted && !isParentEncrypted && !isExternal && isTopFolder) {
             ac = menu.addAction(tr("Encrypt"));
             connect(ac, &QAction::triggered, [this, info] { slotMarkSubfolderEncrypted(info); });
         } else {
@@ -1346,7 +1348,7 @@ void AccountSettings::slotAccountStateChanged()
             Q_UNREACHABLE();
             break;
         case AccountState::NeedToSignTermsOfService:
-            showConnectionLabel(tr("You need to accept the terms of service"));
+            showConnectionLabel(tr("You need to accept the terms of service at %1.").arg(server));
             break;
         }
     } else {

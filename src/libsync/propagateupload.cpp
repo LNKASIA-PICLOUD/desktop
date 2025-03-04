@@ -297,8 +297,9 @@ void PropagateUploadFileCommon::startUploadFile() {
 
     qDebug() << "Deleting the current";
     auto job = new DeleteJob(propagator()->account(),
-        propagator()->fullRemotePath(_fileToUpload._file),
-        this);
+                             propagator()->fullRemotePath(_fileToUpload._file),
+                             {},
+                             this);
     _jobs.append(job);
     connect(job, &DeleteJob::finishedSignal, this, &PropagateUploadFileCommon::slotComputeContentChecksum);
     connect(job, &QObject::destroyed, this, &PropagateUploadFileCommon::slotJobDestroyed);
@@ -865,7 +866,7 @@ void PropagateUploadFileCommon::abortNetworkJobs(
     };
 
     // Abort all running jobs, except for explicitly excluded ones
-    foreach (AbstractNetworkJob *job, _jobs) {
+    for (const auto job : std::as_const(_jobs)) {
         auto reply = job->reply();
         if (!reply || !reply->isRunning())
             continue;
