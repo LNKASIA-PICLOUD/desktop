@@ -8,10 +8,16 @@
 
 #include <QLoggingCategory>
 
+#include "csync/csync_exclude.h"
+
+#include "libsync/configfile.h"
+
 #include "gui/accountmanager.h"
 #include "gui/macOS/fileprovider.h"
 #include "gui/macOS/fileproviderdomainmanager.h"
 #include "gui/macOS/fileproviderxpc_mac_utils.h"
+
+#import <Foundation/Foundation.h>
 
 namespace {
     constexpr int64_t semaphoreWaitDelta = 1000000000; // 1 seconds
@@ -233,6 +239,26 @@ void FileProviderXPC::setFastEnumerationEnabledForExtension(const QString &exten
     qCInfo(lcFileProviderXPC) << "Setting fast enumeration for extension" << extensionAccountId << "to" << enabled;
     const auto service = (NSObject<ClientCommunicationProtocol> *)_clientCommServices.value(extensionAccountId);
     [service setFastEnumerationEnabled:enabled];
+}
+
+void FileProviderXPC::setIgnoreList() const
+{
+    ExcludedFiles ignoreList;
+    ConfigFile::setupDefaultExcludeFilePaths(ignoreList);
+    const auto qPatterns = ignoreList.activeExcludePatterns();
+    qCInfo(lcFileProviderXPC) << "Updating ignore list with" << qPatterns.size() << "patterns";
+
+    const auto mutableNsPatterns = NSMutableArray.array;
+    for (const auto &pattern : qPatterns) {
+        [mutableNsPatterns addObject:pattern.toNSString()];
+    }
+    NSArray<NSString *> *const nsPatterns = [mutableNsPatterns copy];
+
+    for (const auto &extensionAccountId : _clientCommServices.keys()) {
+        qCInfo(lcFileProviderXPC) << "Updating ignore list for extension" << extensionAccountId;
+        const auto service = (NSObject<ClientCommunicationProtocol> *)_clientCommServices.value(extensionAccountId);
+        [service setIgnoreList:nsPatterns];
+    }
 }
 
 } // namespace OCC::Mac
