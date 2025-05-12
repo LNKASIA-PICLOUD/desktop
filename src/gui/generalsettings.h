@@ -60,6 +60,9 @@ private slots:
     void slotToggleAutoUpdateCheck();
 #endif
 
+    void slotSettingsChanged();
+    void slotRestoreSettings();
+
 private:
     void customizeStyle();
 
