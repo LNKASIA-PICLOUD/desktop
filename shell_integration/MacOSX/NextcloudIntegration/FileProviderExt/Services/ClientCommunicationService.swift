@@ -5,6 +5,7 @@
 
 import Foundation
 import FileProvider
+import NextcloudFileProviderKit
 import OSLog
 
 class ClientCommunicationService: NSObject, NSFileProviderServiceSource, NSXPCListenerDelegate, ClientCommunicationProtocol {
@@ -100,5 +101,9 @@ class ClientCommunicationService: NSObject, NSFileProviderServiceSource, NSXPCLi
                 Logger.fileProviderExtension.error("Error signalling enumerator for working set, received error: \(error!.localizedDescription, privacy: .public)")
             }
         }
+    }
+
+    func setIgnoreList(_ ignoreList: [String]) {
+        self.fpExtension.ignoredFiles = IgnoredFilesMatcher(ignoreList: ignoreList)
     }
 }
